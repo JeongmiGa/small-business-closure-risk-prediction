@@ -142,6 +142,19 @@
 
 ---
 
+## 시각화 결과
+
+> 현재 README 시각화는 추가 예정입니다.  
+> 이후 아래와 같은 이미지를 `images/` 폴더에 정리해 연결할 예정입니다.
+
+- Confusion Matrix
+- Feature Importance Top 20
+- SHAP Summary Plot
+- 클래스 불균형 분포
+- 업종별 폐업 비율
+
+---
+
 ## 정책적 시사점
 
 - 소상공인 지원은 사후 지원보다 사전 위험군 식별이 중요할 수 있음
@@ -165,12 +178,27 @@
 small-business-closure-risk-prediction/
 ├─ README.md
 ├─ notebooks/
-│  └─ analysis_notebook.ipynb
+│  └─ small_business_risk_prediction.ipynb
+├─ src/
+│  └─ README.md
+├─ images/
+│  └─ README.md
 ├─ data/
 │  ├─ README.md
 │  └─ sample/
 │     └─ sample_data.csv
+├─ requirements.txt
 ```
+
+---
+
+## 실행 환경
+
+```bash
+pip install -r requirements.txt
+```
+
+이후 Jupyter Notebook에서 `notebooks/small_business_risk_prediction.ipynb` 파일을 열어 분석 과정을 확인할 수 있습니다.
 
 ---
 
@@ -184,10 +212,10 @@ small-business-closure-risk-prediction/
 
 ## 개선 아이디어
 
-- ROC curve, confusion matrix, feature importance, SHAP plot 추가
+- README에 실제 결과 이미지 삽입
 - XGBoost, LightGBM 등과의 성능 비교
 - 위험 신호 정의를 더 정교하게 조정
-- README 시각화 강화
+- 노트북 코드를 `src/`로 일부 분리
 
 ---
 
