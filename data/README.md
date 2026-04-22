@@ -1,14 +1,14 @@
-# Data Directory
+# 데이터 안내
 
-This repository does not include the full original MDIS dataset by default.
+이 저장소에는 원본 전체 데이터가 아닌 **샘플 데이터만 포함**되어 있습니다.
 
-## Included
-- `sample/sample_data.csv`: a small sample file for column structure reference
+## 포함된 파일
+- `sample/sample_data.csv`: 컬럼 구조와 데이터 형태를 확인하기 위한 샘플 파일
 
-## Not Included by Default
-- Full raw survey dataset used in the project
+## 포함하지 않은 파일
+- MDIS 원본 전체 데이터
 
-## Why
-Even if a dataset is publicly downloadable, public redistribution through GitHub may still depend on the source platform's license or terms of use.
+## 이유
+원본 데이터는 외부 플랫폼에서 제공받아 활용한 자료이므로, 현재 저장소에는 재현 구조와 분석 흐름 이해를 위한 최소 구성만 포함했습니다.
 
-Please verify redistribution and re-upload conditions before publishing the full dataset in this repository.
+필요 시 데이터 출처와 이용 조건을 다시 확인한 뒤 공개 범위를 조정할 수 있습니다.
