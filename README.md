@@ -45,7 +45,7 @@
 
 ---
 
-## 내가 수행한 작업
+## 수행 작업
 
 ### 1) 데이터 전처리
 - 결측치 처리
@@ -135,7 +135,7 @@
 - 지역
 - 운영역량 평가 지표
 
-### 해석 포인트
+### 결과 해석
 - 불균형 데이터에서는 accuracy보다 **소수 클래스 탐지력**이 중요함
 - 재무 변수뿐 아니라 운영 구조, 입지, 정책 접근성도 함께 중요하게 작용함
 - 이 모델은 "폐업 확정 예측"보다 **위험 신호 조기 탐지**에 더 적합함
@@ -144,14 +144,22 @@
 
 ## 시각화 결과
 
-> 현재 README 시각화는 추가 예정입니다.  
-> 이후 아래와 같은 이미지를 `images/` 폴더에 정리해 연결할 예정입니다.
+아래 시각화는 이후 순차적으로 정리해 추가할 예정입니다.
 
-- Confusion Matrix
-- Feature Importance Top 20
-- SHAP Summary Plot
-- 클래스 불균형 분포
-- 업종별 폐업 비율
+### 1. 클래스 불균형 분포
+![클래스 불균형 분포](images/class_distribution.png)
+
+### 2. 업종별 폐업 비율
+![업종별 폐업 비율](images/industry_exit_rate.png)
+
+### 3. Confusion Matrix
+![Confusion Matrix](images/confusion_matrix.png)
+
+### 4. Feature Importance Top 20
+![Feature Importance](images/feature_importance_top20.png)
+
+### 5. SHAP Summary Plot
+![SHAP Summary Plot](images/shap_summary.png)
 
 ---
 
