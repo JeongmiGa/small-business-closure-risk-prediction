@@ -1,48 +1,152 @@
-# Small Business Closure Risk Prediction
+# 소상공인 폐업 위험 신호 예측 및 정책 시사점 연구
 
-Machine learning project for early detection of small business closure risk using the 2023 MDIS small business survey dataset, with feature engineering, class imbalance handling, threshold tuning, and policy implications.
+2023년 MDIS 소상공인 실태조사 연간자료를 활용하여, 소상공인의 **폐업 위험 신호를 조기 탐지**하기 위한 머신러닝 프로젝트입니다.  
+이 프로젝트는 단순한 사후 폐업 예측보다, **사업 지속 의향의 약화**를 미리 감지해 정책적 개입 가능성을 살펴보는 데 초점을 두었습니다.
 
-## Overview
-This project analyzes small business closure risk signals using the 2023 MDIS registered small business annual survey data. The goal is not to predict confirmed business closure after the fact, but to detect early warning signals of business discontinuation intent, including business conversion, closure, or retirement plans.
+---
 
-## Problem Statement
-Small business closure affects not only individual livelihoods, but also local commercial districts, employment, and policy design. From a practical perspective, early detection of closure risk signals is important for preventive intervention.
+## 1. 프로젝트 개요
 
-## Dataset
-- Source: MDIS, 2023 registered small business annual survey data
-- Number of businesses: 40,000
-- Raw variables: 156
-- Final features used for modeling: 118
-- Target variable: business continuity intention
-  - 0: continue operating
-  - 1: business conversion, closure, or retirement plan
+소상공인의 경영 악화와 폐업은 개인의 생계 문제를 넘어 지역 상권, 고용, 정책 재설계와도 연결됩니다.  
+따라서 실제 폐업이 발생한 뒤를 설명하는 것보다, **사전에 위험 신호를 감지하는 예측 모델**이 중요하다고 판단했습니다.
 
-## Key Work
-- Cleaned and recoded raw survey variables
-- Removed low-interpretability and leakage-prone variables
-- Created derived variables for better interpretability
-- Compared baseline, undersampling, and SMOTE-based Random Forest approaches
-- Tuned Random Forest with RandomizedSearchCV
-- Optimized classification threshold for imbalanced data
-- Interpreted results through feature importance and SHAP-based analysis
-- Connected findings to policy implications
+본 프로젝트에서는 MDIS 2023년 등록기반 소상공인 실태조사 데이터를 활용하여, 소상공인의 향후 사업 지속 여부를 예측하고 주요 영향 요인을 도출했습니다.
 
-## Results
-- Best model family: Random Forest
-- Final test ROC-AUC: 0.792
-- Final test F1-score: 0.270
-- Important features included sales, operating costs, operating profit, debt, rent-related costs, business duration, industry, and region.
+---
 
-## Repository Structure
-- `notebooks/`: analysis notebook
-- `docs/`: written project report
-- `data/sample/`: sample data only for structure reference
+## 2. 분석 목표
 
-## Data Notice
-The original dataset was obtained from MDIS. This repository currently includes only a sample CSV for structure reference, not the full original dataset. Before publicly uploading the full raw dataset, dataset terms of use and redistribution conditions should be checked.
+- 소상공인의 폐업 위험 신호를 조기 탐지할 수 있는 예측 모델 구축
+- 예측에 중요한 변수 도출
+- 결과를 바탕으로 정책적 시사점 정리
 
-## Reproducibility
-To reproduce the analysis, place the original MDIS dataset file in your local environment and update the file path in the notebook if needed.
+---
 
-## Author
-Jeongmi Ga
+## 3. 데이터
+
+- **데이터 출처**: MDIS 「소상공인 실태조사 연간자료_등록기반」 (2023)
+- **분석 대상**: 40,000개 사업체
+- **원변수 수**: 156개
+- **최종 사용 변수 수**: 118개
+
+### 타깃 변수 정의
+본 프로젝트에서는 설문 문항인 `사업전환_운영계획코드`를 활용하여 종속변수를 재정의했습니다.
+
+- `0`: 계속 운영
+- `1`: 사업전환, 폐업, 은퇴 계획
+
+즉, 본 프로젝트는 **실제 폐업 여부**보다 **사업 지속 의향 약화 및 위험 신호**를 포착하는 데 더 가깝습니다.
+
+---
+
+## 4. 내가 수행한 작업
+
+- 원자료 구조 이해 및 변수 정리
+- 결측치 처리 및 불필요 변수 제거
+- 해석력을 높이기 위한 변수명 개선 및 파생변수 생성
+- 클래스 불균형 데이터 대응 전략 비교
+- Random Forest 기반 예측 모델 구축 및 튜닝
+- threshold 조정을 통한 소수 클래스 탐지력 개선
+- 변수 중요도 및 SHAP 기반 결과 해석
+- 정책적 시사점 도출
+
+---
+
+## 5. 분석 방법
+
+### 전처리
+- 결측치 일괄 처리
+- 누수 가능성이 있는 변수 제거
+- 상수 변수 제거
+- 문자열 변수 제거
+- yes/no 계열 변수의 0/1 변환
+- 정책 관련 변수 분해 및 재구성
+
+### 모델링
+- Train / Validation / Test = 60 / 20 / 20
+- Stratified split 적용
+- 비교 모델:
+  - Baseline Random Forest
+  - Undersampling Random Forest
+  - SMOTE Random Forest
+- 최종 선택:
+  - RandomizedSearchCV 기반 튜닝 Random Forest
+  - threshold 조정 적용
+
+### 평가지표
+- ROC-AUC
+- Precision
+- Recall
+- F1-score
+
+불균형 데이터 특성을 고려해 accuracy보다 **recall, F1-score, ROC-AUC** 중심으로 해석했습니다.
+
+---
+
+## 6. 주요 결과
+
+- **최종 모델**: Tuned Random Forest
+- **Test ROC-AUC**: 0.792
+- **Test F1-score**: 0.270
+
+### 주요 영향 변수
+- 매출
+- 영업비용
+- 영업이익
+- 매출원가
+- 부채
+- 임차 관련 비용
+- 영업기간
+- 업종 / 지역
+- 운영역량 평가 지표
+
+### 해석
+- 단순히 “폐업 예측”이라기보다, **폐업 위험 신호 조기 탐지 모델**로 해석하는 것이 적절함
+- 불균형 데이터에서는 무조건 높은 정확도보다 **소수 클래스 탐지 능력**이 더 중요함
+- 재무 상태뿐 아니라 운영 구조, 입지, 정책 인지 등도 중요한 설명 변수로 작용함
+
+---
+
+## 7. 정책적 시사점
+
+- 폐업은 발생 이후 대응보다 사전 위험군 탐지가 중요함
+- 취약 소상공인을 조기에 식별할 수 있다면 정책 자원의 효율적 배분이 가능함
+- 재무 요인뿐 아니라 운영·입지·정책 접근성과 같은 요소를 함께 고려해야 함
+
+---
+
+## 8. 저장소 구성
+
+```bash
+small-business-closure-risk-prediction/
+├─ README.md
+├─ notebooks/
+│  └─ analysis_notebook.ipynb
+├─ data/
+│  ├─ README.md
+│  └─ sample/
+│     └─ sample_data.csv
+```
+
+---
+
+## 9. 데이터 공개 관련 안내
+
+이 저장소에는 **원본 전체 데이터가 아닌 샘플 데이터만 포함**되어 있습니다.
+
+원본 데이터는 MDIS에서 제공받아 활용한 자료이며, 공개 재배포 가능 여부는 별도 이용 조건 확인이 필요할 수 있으므로 현재 저장소에는 포함하지 않았습니다.
+
+---
+
+## 10. 아쉬운 점과 개선 방향
+
+- 소수 클래스 예측 성능을 더 높이기 위한 추가 실험 필요
+- XGBoost, LightGBM 등 다른 부스팅 계열 모델 비교 가능
+- 정책 대상군 정의를 더 정교하게 조정할 여지 존재
+- 결과 시각화를 README에 추가하면 프로젝트 전달력이 더 좋아질 수 있음
+
+---
+
+## 11. 한 줄 요약
+
+**소상공인의 사업 지속 위험 신호를 조기에 탐지하고, 이를 정책적 개입 관점에서 해석한 데이터 기반 머신러닝 프로젝트**
